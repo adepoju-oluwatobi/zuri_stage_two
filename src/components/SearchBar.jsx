@@ -1,35 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Search from '../assets/search.svg'
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import Search from '../assets/search.svg';
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const TMDB_API_KEY = 'bf0816c71498a511ab8ef58b56688fba';
 
-  const handleSearch = async () => {
-    try {
+  useEffect(() => {
+    const fetchSearchResults = async () => {
       if (query.trim() === '') {
-        // Don't perform a search if the query is empty
         setSearchResults([]);
         return;
       }
 
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${query}`
-      );
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${query}`
+        );
 
-      if (response.data && response.data.results && response.data.results.length > 0) {
-        setSearchResults(response.data.results);
-      } else {
+        if (response.data && response.data.results && response.data.results.length > 0) {
+          setSearchResults(response.data.results);
+        } else {
+          setSearchResults([]);
+        }
+      } catch (error) {
+        console.error('Error performing movie search:', error);
         setSearchResults([]);
-        console.error('No search results found.');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setSearchResults([]);
-      console.error('Error performing movie search:', error);
-    }
-  };
+    };
+
+    fetchSearchResults();
+  }, [query]);
 
   return (
     <div className="relative">
@@ -41,7 +48,7 @@ const SearchBar = () => {
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
-            handleSearch();
+            e.preventDefault(); // Prevent form submission
           }
         }}
       />
@@ -49,20 +56,19 @@ const SearchBar = () => {
         className="search-bar cursor-pointer"
         src={Search}
         alt="Search"
-        onClick={handleSearch}
+        onClick={() => setQuery(query.trim())}
       />
+      {loading && <p className="absolute top-10 left-0 text-white">Loading...</p>}
       {searchResults.length > 0 && (
         <div className="absolute top-10 left-0 bg-white p-2 w-64 rounded-lg shadow-md">
           <p className="text-gray-800 font-semibold">Search Results</p>
           <ul>
             {searchResults.map((movie) => (
               <li key={movie.id}>
-                <a
-                  href={`/movie/${movie.id}`} // Replace with the appropriate link
-                  className="block text-blue-500 hover:underline"
-                >
-                  {movie.title}
-                </a>
+                <Link to={`/movie/${movie.id}`}>
+                  {/* Use Link to navigate to the movie details */}
+                  {movie.title} ({movie.release_date && movie.release_date.slice(0, 4)})
+                </Link>
               </li>
             ))}
           </ul>
