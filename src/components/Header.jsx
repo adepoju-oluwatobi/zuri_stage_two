@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Logo from '../assets/logo.svg'
 import Menu from '../assets/menu.svg'
 import SearchBar from './SearchBar'
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -14,10 +15,12 @@ function Header() {
     <div >
         <div className='md:hidden'>
       <div className='header'>
+        <Link to = '/'>
         <div className='one'>
           <img src={Logo} alt='logo' />
           <p>MovieBox</p>
         </div>
+        </Link>
         <div className='three'>
           <p className=''>Sign In</p>
           <img

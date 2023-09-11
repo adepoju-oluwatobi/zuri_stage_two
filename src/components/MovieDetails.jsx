@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams from react-router-dom
+import Header from './Header';
 
 const MovieDetails = () => {
   const { id } = useParams(); // Extract the "id" parameter from the route
@@ -37,6 +38,10 @@ const MovieDetails = () => {
         <p>Loading...</p>
       ) : movieDetails ? (
         <div className="movie-details">
+            <div className=' bg-black pt-8 px-4 pb-4'>
+            <Header />
+
+            </div>
           <img
             src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
             alt={movieDetails.title}

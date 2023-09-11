@@ -42,7 +42,7 @@ const SearchBar = () => {
     <div className="relative">
       <input
         type="text"
-        className="border border-white bg-transparent placeholder-white rounded-lg py-2 px-4 w-64 focus:outline-none focus:border-blue-500"
+        className="border border-white bg-transparent placeholder-white rounded-lg py-2 px-4 w-64 focus:outline-none focus:border-blue-500 text-white"
         placeholder="Search for movies by title..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
