@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import Search from '../assets/search.svg';
+import SearchResult from './SearchResult'; // Import the SearchResult component
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
@@ -64,12 +65,7 @@ const SearchBar = () => {
           <p className="text-gray-800 font-semibold">Search Results</p>
           <ul>
             {searchResults.map((movie) => (
-              <li key={movie.id}>
-                <Link to={`/movie/${movie.id}`}>
-                  {/* Use Link to navigate to the movie details */}
-                  {movie.title} ({movie.release_date && movie.release_date.slice(0, 4)})
-                </Link>
-              </li>
+              <SearchResult key={movie.id} movie={movie} />
             ))}
           </ul>
         </div>

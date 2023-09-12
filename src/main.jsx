@@ -7,6 +7,7 @@ import {
 import "./index.css";
 import App from "./App";
 import MovieDetails from "./components/MovieDetails";
+import SearchResult from "./components/SearchResult";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/movie/:id",
-    element: <MovieDetails />
+    element: <MovieDetails />,
+  },
+  {
+    path: "/search-results",
+    element: <SearchResult />
   }
 ]);
 

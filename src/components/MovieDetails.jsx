@@ -46,8 +46,10 @@ const MovieDetails = () => {
             src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
             alt={movieDetails.title}
           />
-          <h2>{movieDetails.title}</h2>
-          <p>Release Year: {movieDetails.release_date && movieDetails.release_date.slice(0, 4)}</p>
+          <h2 data-testid="movie-title">{movieDetails.title}</h2>
+          <h6 data-testid="movie-overview">{movieDetails.overview}</h6>
+          <h6 data-testid="movie-runtime" className='font-bold'>{`${movieDetails.runtime} Minuites`}</h6>
+          <p data-testid="movie-release-date">Release Year: {movieDetails.release_date && movieDetails.release_date.slice(0, 4)}</p>
           <p>Genre: {movieDetails.genres.map((genre) => genre.name).join(', ')}</p>
         </div>
       ) : (
