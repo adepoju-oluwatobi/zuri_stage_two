@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Search from '../assets/search.svg';
-import SearchResult from './SearchResult'; // Import the SearchResult component
+import SearchResult from './SearchResult';
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
@@ -63,7 +63,7 @@ const SearchBar = () => {
       {searchResults.length > 0 && (
         <div className="absolute top-10 left-0 bg-white p-2 w-64 rounded-lg shadow-md">
           <p className="text-gray-800 font-semibold">Search Results</p>
-          <ul>
+          <ul className="search-results-list" style={{ maxHeight: '300px', overflowY: 'scroll' }}>
             {searchResults.map((movie) => (
               <SearchResult key={movie.id} movie={movie} />
             ))}
