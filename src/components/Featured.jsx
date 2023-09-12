@@ -140,11 +140,11 @@ const Featured = () => {
                 </div>
                 <h2
                   data-testid="movie-title"
-                  className="text-sm md:text-xl md:mt-2 font-semibold"
+                  className="text-sm md:text-xl md:mt-2 mb-2 font-semibold"
                 >
                   {movie.title}
                 </h2>
-                <div className="flex justify-between">
+                <div className="flex justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <img src={Tmdb} alt="" />
                     <p className="text-xs md:text-sm opacity-50">{movie.rating}/100</p>
@@ -158,7 +158,7 @@ const Featured = () => {
                     <p className="text-xs md:text-sm opacity-50">{calculateFavoritePercentage(movie.id)}%</p> {/* Display favorite count as a percentage */}
                   </div>
                 </div>
-                <p className="text-xs mt-1">
+                <p className="text-xs mt-1 opacity-50">
                   {movie.genre_ids.map((genreId) => genres[genreId]).join(", ")}
                 </p>
               </div>
