@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Logo from "../assets/logo.svg";
 import Home from "../assets/home.svg";
 import Mov from "../assets/movies.svg";
 import Tv from "../assets/tv.svg";
 import Upcoming from "../assets/upcoming.svg";
 import Trailer from "../assets/trailer.svg";
+import Logout from "../assets/logout.svg";
+import Star from "../assets/star.svg";
+import Dropdown from "../assets/dropdown.svg";
+import Notif from "../assets/notif.svg";
+import More from "../assets/more.svg";
+import MoreLight from "../assets/more-light.svg";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [directors, setDirectors] = useState([]); // State for director(s) names
+  const [directors, setDirectors] = useState([]);
+  const [writers, setWriters] = useState([]);
+  const [stars, setStars] = useState([]);
+  const [releaseDateUTC, setReleaseDateUTC] = useState(""); // Added releaseDateUTC state
   const TMDB_API_KEY = "bf0816c71498a511ab8ef58b56688fba";
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -26,20 +41,37 @@ const MovieDetails = () => {
         if (response.data) {
           setMovieDetails(response.data);
 
+          // Convert the release date to UTC
+          const releaseDate = new Date(response.data.release_date);
+          const releaseDateUTC = releaseDate.toUTCString();
+
           // Fetch movie credits to get director(s)
           const creditsResponse = await axios.get(
             `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${TMDB_API_KEY}&language=en-US`
           );
 
           if (creditsResponse.data && creditsResponse.data.crew) {
-            // Find the director(s) in the crew
-            const directors = creditsResponse.data.crew.filter(
-              (member) => member.job === "Director"
-            );
+            const crew = creditsResponse.data.crew;
 
-            // Extract director names and set the directors state variable
-            const directorNames = directors.map((director) => director.name);
-            setDirectors(directorNames);
+            // Extract director names
+            const directors = crew
+              .filter((member) => member.job === "Director")
+              .map((director) => director.name);
+
+            // Extract writer names
+            const writers = crew
+              .filter((member) => member.department === "Writing")
+              .map((writer) => writer.name);
+
+            // Extract star names (top billed cast)
+            const stars = creditsResponse.data.cast
+              .filter((cast) => cast.order < 5) // You can adjust the number as needed
+              .map((cast) => cast.name);
+
+            setDirectors(directors);
+            setWriters(writers);
+            setStars(stars);
+            setReleaseDateUTC(releaseDateUTC); // Set the releaseDateUTC state
           }
         } else {
           console.error("No movie details found.");
@@ -54,31 +86,65 @@ const MovieDetails = () => {
     fetchMovieDetails();
   }, [id]); // Use "id" as a dependency
 
+  // State to store the top-rated movie posters
+  const [topRatedMoviePosters, setTopRatedMoviePosters] = useState([]);
+
+  useEffect(() => {
+    // Function to fetch top-rated movies
+    const fetchTopRatedMovies = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&sort_by=vote_average.desc&vote_count.gte=1000`
+        );
+
+        if (response.data && response.data.results) {
+          // Extract poster paths from the results
+          const posters = response.data.results.map(
+            (movie) => movie.poster_path
+          );
+          setTopRatedMoviePosters(posters.slice(0, 3)); // Get the top 3 posters
+        } else {
+          console.error("No top-rated movies found.");
+        }
+      } catch (error) {
+        console.error("Error fetching top-rated movies:", error);
+      }
+    };
+
+    fetchTopRatedMovies();
+  }, []);
+
   return (
     <div className="flex w-[100%]">
       {/* Left Sidebar */}
-      <div className="border-2 border-r-slate-300 h-[100vh] rounded-r-[50px]">
-        <div className="flex items-center gap-2 p-10">
-          <img className="w-8" src={Logo} alt="" />
-          <p>MovieBox</p>
-        </div>
+      <div className="hidden md:block border-2 border-r-slate-300 h-[100vh] rounded-r-[50px]">
+        <Link to="/">
+          <div className="flex items-center gap-2 p-10 cursor-pointer">
+            <img className="w-8" src={Logo} alt="" />
+            <p>MovieBox</p>
+          </div>
+        </Link>
 
-        <div className="flex flex-col justify-center gap-4 mt-8 w-[100%]">
-          <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
-            <img className="w-5" src={Home} alt="" />
-            <p className="text-center">Home</p>
-          </div>
-          <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
-            <img className="w-5" src={Mov} alt="" />
-            <p>Movies</p>
-          </div>
-          <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
-            <img className="w-5" src={Tv} alt="" />
-            <p>Tv Series</p>
-          </div>
-          <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
-            <img className="w-5" src={Upcoming} alt="" />
-            <p>Upcoming</p>
+        <div className="flex-col justify-center gap-4 mt-4 w-[100%]">
+          <div>
+            <Link to="/">
+              <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+                <img className="w-5" src={Home} alt="" />
+                <p className="text-center">Home</p>
+              </div>
+            </Link>
+            <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <img className="w-5" src={Mov} alt="" />
+              <p>Movies</p>
+            </div>
+            <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <img className="w-5" src={Tv} alt="" />
+              <p>Tv Series</p>
+            </div>
+            <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <img className="w-5" src={Upcoming} alt="" />
+              <p>Upcoming</p>
+            </div>
           </div>
 
           <div className="w-[120px] m-auto border-[0.3px] rounded-xl px-2 py-4 border-[#BE123C] bg-[#BE123C1A]">
@@ -89,6 +155,11 @@ const MovieDetails = () => {
             <button className="text-xs m-auto bg-[#be123d44] py-1 px-2 text-[#BE123C] rounded-lg">
               Start Playing
             </button>
+          </div>
+
+          <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
+            <img className="w-5" src={Logout} alt="" />
+            <p>Log out</p>
           </div>
         </div>
       </div>
@@ -115,7 +186,7 @@ const MovieDetails = () => {
           <p>Loading...</p>
         ) : movieDetails ? (
           <div className="movie-details">
-            <div className="my-4">
+            <div className="my-4 flex justify-between items-center gap-2 flex-wrap">
               <p
                 data-testid="movie-title"
                 className="font-bold opacity-70 flex items-center gap-2"
@@ -123,8 +194,7 @@ const MovieDetails = () => {
                 {movieDetails.title}.
                 <h2 data-testid="movie-release-date">
                   {" "}
-                  {movieDetails.release_date &&
-                    movieDetails.release_date.slice(0, 4)}
+                  {releaseDateUTC} {/* Display the UTC release date */}
                 </h2>
                 .{" "}
                 <h6
@@ -136,17 +206,91 @@ const MovieDetails = () => {
                   {movieDetails.genres.map((genre) => genre.name).join(" ")}
                 </h6>
               </p>
-            </div>
-            <div>
               <div className="flex">
-                <div>
+                <img className="w-5" src={Star} alt="" />
+                <p className="test-xs">rated</p>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex gap-2 w-[100%]">
+                <div className="w-[75%]">
                   <h6 data-testid="movie-overview">{movieDetails.overview}</h6>
                   <p className="mt-2">
-                    Director: <span className="text-[#BE123C]">{directors.length > 1 ? "s" : ""}:{" "}
-                    {directors.join(", ")}</span>
+                    Director:{" "}
+                    <span className="text-[#BE123C]">
+                      {directors.length > 1 ? "s" : ""} {directors.join(", ")}
+                    </span>
                   </p>
+                  <p>
+                    Writers:{" "}
+                    <span className="text-[#BE123C]">{writers.join(", ")}</span>
+                  </p>
+                  <p>
+                    Stars:{" "}
+                    <span className="text-[#BE123C]">{stars.join(", ")}</span>
+                  </p>
+
+                  <div className="flex items-center border-b pb-2 mt-2">
+                    <p className="mr-2 bg-[#BE123C] rounded text-white py-1 px-4">
+                      Top Rated Movie #65
+                    </p>
+                    <div className="relative">
+                      <button
+                        className="border rounded text-left px-6 py-1 flex items-center gap-3 ml-[-9px]"
+                        onClick={toggleDropdown}
+                      >
+                        Award 9 Nominations
+                        <img className="w-4" src={Dropdown} alt="" />
+                      </button>
+                      {isDropdownOpen && (
+                        <div className="absolute border border-gray-300 mt-1 bg-white">
+                          {/* Dropdown content */}
+                          <p className="p-2 border-b">Item 1</p>
+                          <p className="p-2 border-b">Item 2</p>
+                          <p className="p-2">Item 3</p>
+                          {/* Add more items as needed */}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div>side one</div>
+                <div className="w-[25%]">
+                  <div className="text-center">
+                    <p className="bg-[#BE123C] text-white p-2 w-[100%] rounded flex justify-center items-center gap-2">
+                      <img className="w-5" src={Notif} alt="" />
+                      See Notification
+                    </p>
+                  </div>
+
+                  <div className="text-center mt-2">
+                    <p className="bg-[#BE123C1A] p-2 w-[100%] rounded flex justify-center items-center gap-2">
+                      <img className="w-5" src={More} alt="" />
+                      More Watch Options
+                    </p>
+                  </div>
+
+                  <div>
+                    <div className="mt-2 rounded w-fit">
+                      <div className="flex gap-1">
+                        {topRatedMoviePosters.map((posterPath, index) => (
+                          <img
+                            key={index}
+                            src={`https://image.tmdb.org/t/p/original/${posterPath}`}
+                            alt={`Best Movie ${index + 1}`}
+                            className={`w-[80px] h-full${
+                              index > 0 ? 2 : 0
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <p className="bg-black bg-opacity-50 text-white p-1 w-[100%] rounded flex justify-center items-center gap-2 relative top-[-32px]">
+                        <img className="w-5" src={MoreLight} alt="" />
+                        Best Movies in September
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

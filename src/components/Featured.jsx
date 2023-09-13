@@ -29,7 +29,7 @@ const Featured = () => {
   const fetchFeaturedMovies = useCallback(async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=en-US&page=1`
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_API_KEY}&language=en-US&page=1`
       );
 
       if (
@@ -118,7 +118,7 @@ const Featured = () => {
           movies.map((movie) => (
             <div key={movie.id} className="relative">
               <div data-testid="movie-card" className="w-[150px] md:w-[250px]">
-                <img className="relative top-[65px] left-[75%] md:w-[40px] opacity-90 hover:opacity-100" src={FavIcon} alt="" />
+                <img className="relative top-[65px] left-[75%] md:w-[40px] opacity-90 hover:opacity-100 cursor-pointer" src={FavIcon} alt="" />
                 <img
                   src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                   alt={movie.title}

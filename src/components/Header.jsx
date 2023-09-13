@@ -16,12 +16,12 @@ function Header() {
         <div className='md:hidden'>
       <div className='header'>
         <Link to = '/'>
-        <div className='one'>
+        <div className='one cursor-pointer'>
           <img src={Logo} alt='logo' />
           <p>MovieBox</p>
         </div>
         </Link>
-        <div className='three'>
+        <div className='three cursor-pointer'>
           <p className=''>Sign In</p>
           <img
             id='menu-icon'
