@@ -9,7 +9,7 @@
         "dest": "/"
       },
       {
-        "src": "/search-results",
+        "src": "/search-result",
         "dest": "/"
       }
     ]
