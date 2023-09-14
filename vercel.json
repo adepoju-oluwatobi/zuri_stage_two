@@ -1,16 +1,16 @@
 {
-    "routes": [
-      {
-        "src": "/",
-        "dest": "/"
-      },
-      {
-        "src": "/movies/:id",
-        "dest": "/"
-      },
-      {
-        "src": "/search-results",
-        "dest": "/"
-      }
+    "routes":[
+        {
+            "src": "/",
+            "dest": "/"
+        },
+        {
+            "src": "/movies/:id",
+            "dest": "/"
+        },
+        {
+            "src": "/search-results",
+            "dest": "/"
+        }
     ]
-  }
+}
