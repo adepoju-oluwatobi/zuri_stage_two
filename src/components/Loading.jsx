@@ -23,7 +23,7 @@ const Loading = () => {
           className="animate-spin rounded-full h-16 w-16 border-t-4"
           style={{ borderTopColor: color }}
         ></div>
-        <div>Loading Banner, please wait a moment</div>
+        <div>Fetching movie data, please wait a moment</div>
       </div>
     </div>
   );
