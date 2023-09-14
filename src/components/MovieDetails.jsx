@@ -14,6 +14,7 @@ import Notif from "../assets/notif.svg";
 import More from "../assets/more.svg";
 import MoreLight from "../assets/more-light.svg";
 import Header from "./Header";
+import Loading from "./Loading";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const MovieDetails = () => {
   const [directors, setDirectors] = useState([]);
   const [writers, setWriters] = useState([]);
   const [stars, setStars] = useState([]);
-  const [releaseDateUTC, setReleaseDateUTC] = useState(""); // Added releaseDateUTC state
+  const [releaseDateUTC, setReleaseDateUTC] = useState("");
   const TMDB_API_KEY = "bf0816c71498a511ab8ef58b56688fba";
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -66,13 +67,13 @@ const MovieDetails = () => {
 
             // Extract star names (top billed cast)
             const stars = creditsResponse.data.cast
-              .filter((cast) => cast.order < 5) // You can adjust the number as needed
+              .filter((cast) => cast.order < 5)
               .map((cast) => cast.name);
 
             setDirectors(directors);
             setWriters(writers);
             setStars(stars);
-            setReleaseDateUTC(releaseDateUTC); // Set the releaseDateUTC state
+            setReleaseDateUTC(releaseDateUTC);
           }
         } else {
           console.error("No movie details found.");
@@ -85,9 +86,9 @@ const MovieDetails = () => {
     };
 
     fetchMovieDetails();
-  }, [id]); // Use "id" as a dependency
+  }, [id]);
 
-  // State to store the top-rated movie posters
+  // store the top-rated movie posters
   const [topRatedMoviePosters, setTopRatedMoviePosters] = useState([]);
 
   useEffect(() => {
@@ -117,7 +118,7 @@ const MovieDetails = () => {
 
   return (
     <div>
-      <div className="pt-8 p-4 bg-black">
+      <div className="md:hidden pt-8 p-4 bg-black">
       <Header />
       </div>
       <div className="flex w-[100%]">
@@ -179,7 +180,7 @@ const MovieDetails = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              minHeight: "300px", // Set a minimum height for the background div
+              minHeight: "300px",
             }}
           >
             <div className="flex justify-center items-center h-[300px]">
@@ -188,10 +189,10 @@ const MovieDetails = () => {
           </div>
         </div>
         {loading ? (
-          <p>Loading...</p>
+          <p><Loading /></p>
         ) : movieDetails ? (
           <div className="movie-details">
-            <div className="my-4 flex flex-col justify-between items-center gap-2 flex-wrap">
+            <div className="my-4 flex justify-between items-center gap-2 flex-wrap">
               <p
                 data-testid="movie-title"
                 className="font-bold opacity-70 flex flex-wrap items-center gap-2"
@@ -199,7 +200,7 @@ const MovieDetails = () => {
                 {movieDetails.title}.
                 <h2 data-testid="movie-release-date">
                   {" "}
-                  {releaseDateUTC} {/* Display the UTC release date */}
+                  {releaseDateUTC}
                 </h2>
                 .{" "}
                 <h6
@@ -251,10 +252,9 @@ const MovieDetails = () => {
                       {isDropdownOpen && (
                         <div className="absolute border border-gray-300 mt-1 bg-white">
                           {/* Dropdown content */}
-                          <p className="p-2 border-b">Item 1</p>
-                          <p className="p-2 border-b">Item 2</p>
-                          <p className="p-2">Item 3</p>
-                          {/* Add more items as needed */}
+                          <p className="p-2 border-b">Movie 1</p>
+                          <p className="p-2 border-b">Movie 2</p>
+                          <p className="p-2">Movie 3</p>
                         </div>
                       )}
                     </div>

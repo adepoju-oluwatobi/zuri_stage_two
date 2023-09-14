@@ -1,8 +1,14 @@
-# React + Vite
+## HOW TO RUN THIS APP LOCALLY
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Clone the repository unto your local computer
+- run npm ci in your terminal in the directory containing the project files
+- npm ci will install all the dependency
+- after installing them run 'npm run dev in the terminal
+- the app should work just fine.
+- please drop a like #cheers
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# TECH STACK
+- vite: this app was made with vite + react
+- Tailwind Css
+- axios
+- react-router-dom

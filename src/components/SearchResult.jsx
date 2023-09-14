@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const SearchResult = ({ movie }) => {
   return (
     <li className='text-black hover:bg-slate-400 hover:text-white p-2 '>
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={`/movies/${movie.id}`}>
         <div className="flex items-center">
           {movie.poster_path && (
             <img

@@ -87,9 +87,9 @@ const Banner = () => {
 
           <div className="bg-gradient-to-r from-black via-transparent to-black h-full w-full p-8 relative z-10">
             <Header />
-            <div className="mt-[10%]">
+            <div className="mt-[15%] md:mt-[10%]">
               <Link
-                to={`/movie/${movie.id}`}
+                to={`/movies/${movie.id}`}
                 className="text-lg w-[20ch] md:text-4xl md:w-[20ch] mt-[10%] md:mt-[10%] font-semibold text-white"
               >
                 {movie.title}
@@ -110,7 +110,7 @@ const Banner = () => {
             <p className="text-xs md:text-sm text-white mt-2 w-[30ch]">
               {truncateText(movie.overview, 150)}{" "}
             </p>
-            <Link to={`/movie/${movie.id}`}>
+            <Link to={`/movies/${movie.id}`}>
               <button className="p-2 text-sm text-white font-bold mt-4 bg-[#BE123C] rounded-lg flex gap-2 items-center">
                 <img className="w-5 fill-white" src={PlayIcon} alt="" />
                 WATCH TRAILER

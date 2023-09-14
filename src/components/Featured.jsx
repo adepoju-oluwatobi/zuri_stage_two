@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import FavIcon from "../assets/fav.svg";
-import Tmdb from '../assets/tmdb.svg';
-import Berry from '../assets/berry.svg';
+import Tmdb from "../assets/tmdb.svg";
+import Berry from "../assets/berry.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 
@@ -46,7 +46,9 @@ const Featured = () => {
             );
 
             if (ratingResponse.data && ratingResponse.data.vote_average) {
-              const ratingPercentage = (ratingResponse.data.vote_average * 10).toFixed(1);
+              const ratingPercentage = (
+                ratingResponse.data.vote_average * 10
+              ).toFixed(1);
 
               return {
                 ...movie,
@@ -107,7 +109,7 @@ const Featured = () => {
   };
 
   const fetchMovieDetailsById = (movieId) => {
-    navigate(`/movie/${movieId}`);
+    navigate(`/movies/${movieId}`);
   };
 
   return (
@@ -118,7 +120,11 @@ const Featured = () => {
           movies.map((movie) => (
             <div key={movie.id} className="relative">
               <div data-testid="movie-card" className="w-[150px] md:w-[250px]">
-                <img className="relative top-[65px] left-[75%] md:w-[40px] opacity-90 hover:opacity-100 cursor-pointer" src={FavIcon} alt="" />
+                <img
+                  className="relative top-[65px] left-[75%] md:w-[40px] opacity-90 hover:opacity-100 cursor-pointer"
+                  src={FavIcon}
+                  alt=""
+                />
                 <img
                   src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                   alt={movie.title}
@@ -147,15 +153,19 @@ const Featured = () => {
                 <div className="flex justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <img src={Tmdb} alt="" />
-                    <p className="text-xs md:text-sm opacity-50">{movie.rating}/100</p>
+                    <p className="text-xs md:text-sm opacity-50">
+                      {movie.rating}/100
+                    </p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <img 
-                    src={Berry} 
-                    alt="" 
-                    onClick={() => toggleFavorite(movie.id)}
+                    <img
+                      src={Berry}
+                      alt=""
+                      onClick={() => toggleFavorite(movie.id)}
                     />
-                    <p className="text-xs md:text-sm opacity-50">{calculateFavoritePercentage(movie.id)}%</p> {/* Display favorite count as a percentage */}
+                    <p className="text-xs md:text-sm opacity-50">
+                      {calculateFavoritePercentage(movie.id)}%
+                    </p>{" "}
                   </div>
                 </div>
                 <p className="text-xs mt-1 opacity-50">
@@ -168,9 +178,7 @@ const Featured = () => {
           <Loading />
         )}
       </div>
-      <div className="mt-8">
-        {/* Content for the row below the grid */}
-      </div>
+      <div className="mt-8"></div>
     </div>
   );
 };
