@@ -185,7 +185,7 @@ const MovieDetails = () => {
             </div>
           </Link>
 
-          <div className="flex-col justify-center gap-4 w-[100%]">
+          <div className="flex-col text-center justify-center gap-4 w-[100%]">
             <div>
               <Link to="/">
                 <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
