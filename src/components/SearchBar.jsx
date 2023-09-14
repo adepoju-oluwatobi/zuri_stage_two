@@ -43,7 +43,7 @@ const SearchBar = () => {
     <div className="relative">
       <input
         type="text"
-        className="border border-white bg-transparent placeholder-white rounded-lg py-2 px-4 w-64 focus:outline-none focus:border-blue-500 text-white"
+        className="border border-white bg-transparent placeholder-white rounded-lg py-2 px-4 focus:outline-none focus:border-blue-500 text-white w-[580px]"
         placeholder="Search for movies by title..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
@@ -61,7 +61,7 @@ const SearchBar = () => {
       />
       {loading && <p className="absolute top-10 left-0 text-white">Loading...</p>}
       {searchResults.length > 0 && (
-        <div className="absolute top-10 left-0 bg-white p-2 w-64 rounded-lg shadow-md">
+        <div className="absolute top-10 left-0 bg-white p-2 w-[580px] mt-2 rounded-lg shadow-md">
           <p className="text-gray-800 font-semibold">Search Results</p>
           <ul className="search-results-list" style={{ maxHeight: '300px', overflowY: 'scroll' }}>
             {searchResults.map((movie) => (
