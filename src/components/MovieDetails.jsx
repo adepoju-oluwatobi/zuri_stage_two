@@ -13,6 +13,7 @@ import Dropdown from "../assets/dropdown.svg";
 import Notif from "../assets/notif.svg";
 import More from "../assets/more.svg";
 import MoreLight from "../assets/more-light.svg";
+import Header from "./Header";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -115,7 +116,11 @@ const MovieDetails = () => {
   }, []);
 
   return (
-    <div className="flex w-[100%]">
+    <div>
+      <div className="pt-8 p-4 bg-black">
+      <Header />
+      </div>
+      <div className="flex w-[100%]">
       {/* Left Sidebar */}
       <div className="hidden md:block border-2 border-r-slate-300 h-[100vh] rounded-r-[50px]">
         <Link to="/">
@@ -186,10 +191,10 @@ const MovieDetails = () => {
           <p>Loading...</p>
         ) : movieDetails ? (
           <div className="movie-details">
-            <div className="my-4 flex justify-between items-center gap-2 flex-wrap">
+            <div className="my-4 flex flex-col justify-between items-center gap-2 flex-wrap">
               <p
                 data-testid="movie-title"
-                className="font-bold opacity-70 flex items-center gap-2"
+                className="font-bold opacity-70 flex flex-wrap items-center gap-2"
               >
                 {movieDetails.title}.
                 <h2 data-testid="movie-release-date">
@@ -213,8 +218,8 @@ const MovieDetails = () => {
             </div>
 
             <div>
-              <div className="flex gap-2 w-[100%]">
-                <div className="w-[75%]">
+              <div className="flex flex-col md:flex-row gap-2 w-[100%]">
+                <div className="w-[100%] md:w-[75%]">
                   <h6 data-testid="movie-overview">{movieDetails.overview}</h6>
                   <p className="mt-2">
                     Director:{" "}
@@ -231,7 +236,7 @@ const MovieDetails = () => {
                     <span className="text-[#BE123C]">{stars.join(", ")}</span>
                   </p>
 
-                  <div className="flex items-center border-b pb-2 mt-2">
+                  <div className="flex flex-col md:flex-row gap-2 md:gap-0 items-center border-b pb-2 mt-2">
                     <p className="mr-2 bg-[#BE123C] rounded text-white py-1 px-4">
                       Top Rated Movie #65
                     </p>
@@ -255,7 +260,7 @@ const MovieDetails = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-[25%]">
+                <div className="w-[100%] md:w-[25%]">
                   <div className="text-center">
                     <p className="bg-[#BE123C] text-white p-2 w-[100%] rounded flex justify-center items-center gap-2">
                       <img className="w-5" src={Notif} alt="" />
@@ -298,6 +303,7 @@ const MovieDetails = () => {
           <p>No movie details found.</p>
         )}
       </div>
+    </div>
     </div>
   );
 };
