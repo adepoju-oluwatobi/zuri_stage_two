@@ -153,7 +153,7 @@ const MovieDetails = () => {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`
         );
-  
+
         if (response.data && response.data.vote_average) {
           // Format the rating with one decimal place
           const formattedRating = (response.data.vote_average * 10).toFixed(1);
@@ -165,10 +165,9 @@ const MovieDetails = () => {
         console.error("Error fetching movie rating:", error);
       }
     };
-  
+
     fetchMovieRating();
   }, [id, TMDB_API_KEY]);
-  
 
   return (
     <div>
@@ -280,20 +279,25 @@ const MovieDetails = () => {
                   </h6>
                 </p>
                 <div className="flex items-center gap-2">
-  <img className="w-5" src={Star} alt="" />
-  {movieRating !== null ? (
-    <p className="text-xs"><span className="opacity-50">{movieRating}</span> | <span className="font-bold">350</span></p>
-  ) : (
-    <p className="text-xs">Rating not available</p>
-  )}
-</div>
-
+                  <img className="w-5" src={Star} alt="" />
+                  {movieRating !== null ? (
+                    <p className="text-xs">
+                      <span className="opacity-50">{movieRating}</span> |{" "}
+                      <span className="font-bold">350</span>
+                    </p>
+                  ) : (
+                    <p className="text-xs">Rating not available</p>
+                  )}
+                </div>
               </div>
 
               <div>
                 <div className="flex flex-col md:flex-row gap-2 w-[100%]">
                   <div className="w-[100%] md:w-[75%]">
-                    <h6 className="text-sm mt-[-10px]" data-testid="movie-overview">
+                    <h6
+                      className="text-sm mt-[-10px]"
+                      data-testid="movie-overview"
+                    >
                       {movieDetails.overview}
                     </h6>
                     <p className="mt-2">

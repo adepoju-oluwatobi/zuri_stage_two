@@ -88,11 +88,10 @@ const Banner = () => {
           <div className="bg-gradient-to-r from-black via-transparent to-black h-full w-full p-8 relative z-10">
             <Header />
             <div className="mt-[15%] md:mt-[10%]">
-              <Link
-                to={`/movies/${movie.id}`}
-                className="text-lg w-[20ch] md:text-4xl md:w-[20ch] mt-[10%] md:mt-[10%] font-semibold text-white"
-              >
-                {movie.title}
+              <Link to={`/movies/${movie.id}`}>
+                <div className="text-lg w-[20ch] md:text-4xl md:w-[20ch] mt-[10%] md:mt-[10%] font-semibold text-white">
+                  {movie.title}
+                </div>
               </Link>
             </div>
             <div className="flex gap-5 mt-2 text-white text-xs">
