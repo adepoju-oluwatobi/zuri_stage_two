@@ -185,23 +185,23 @@ const MovieDetails = () => {
             </div>
           </Link>
 
-          <div className="flex-col text-center justify-center gap-4 w-[100%]">
+          <div className="flex flex-col text-center justify-center gap-2 w-[100%]">
             <div>
               <Link to="/">
-                <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+                <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
                   <img className="w-5" src={Home} alt="" />
                   <p className="text-center">Home</p>
                 </div>
               </Link>
-              <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
                 <img className="w-5" src={Mov} alt="" />
                 <p>Movies</p>
               </div>
-              <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
                 <img className="w-5" src={Tv} alt="" />
                 <p>Tv Series</p>
               </div>
-              <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
                 <img className="w-5" src={Upcoming} alt="" />
                 <p>Upcoming</p>
               </div>
@@ -219,7 +219,7 @@ const MovieDetails = () => {
               </button>
             </div>
 
-            <div className="flex gap-2 items-center p-4 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
+            <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
               <img className="w-5" src={Logout} alt="" />
               <p>Log out</p>
             </div>
@@ -240,7 +240,7 @@ const MovieDetails = () => {
             // }}
             >
               {/* Trailer */}
-              <div className="my-4 rounded-xl">
+              <div className="mb-4 mt-[-10px] rounded-xl">
                 <div className="rounded-2xl overflow-hidden">
                   <YouTube
                     videoId={trailerKey}
@@ -279,10 +279,10 @@ const MovieDetails = () => {
                     {movieDetails.genres.map((genre) => genre.name).join(" ")}
                   </h6>
                 </p>
-                <div className="flex items-center items-center gap-2">
+                <div className="flex items-center gap-2">
   <img className="w-5" src={Star} alt="" />
   {movieRating !== null ? (
-    <p className="text-xs"><span className="opacity-50">{movieRating}</span>/<span className="font-bold">350</span></p>
+    <p className="text-xs"><span className="opacity-50">{movieRating}</span> | <span className="font-bold">350</span></p>
   ) : (
     <p className="text-xs">Rating not available</p>
   )}
@@ -293,7 +293,7 @@ const MovieDetails = () => {
               <div>
                 <div className="flex flex-col md:flex-row gap-2 w-[100%]">
                   <div className="w-[100%] md:w-[75%]">
-                    <h6 data-testid="movie-overview">
+                    <h6 className="text-sm mt-[-10px]" data-testid="movie-overview">
                       {movieDetails.overview}
                     </h6>
                     <p className="mt-2">

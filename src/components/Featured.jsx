@@ -129,7 +129,7 @@ const Featured = () => {
                   src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                   alt={movie.title}
                   data-testid="movie-poster"
-                  className="w-[150px] md:w-fit shadow-md"
+                  className="w-[150px] md:w-[250px] hover:shadow-2xl  shadow-md cursor-pointer"
                   onClick={() => fetchMovieDetailsById(movie.id)}
                 />
 
