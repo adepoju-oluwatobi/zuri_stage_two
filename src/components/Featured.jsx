@@ -114,7 +114,7 @@ const Featured = () => {
 
   return (
     <div className="p-4 md:p-[70px] w-[100%] m-auto">
-      <p className="font-bold text-4xl mb-[50px]">Featured Movies</p>
+      <p className="font-bold text-4xl md:my-[0] my-[5%]">Featured Movies</p>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10 mt-4 m-auto">
         {movies.length > 0 ? (
           movies.map((movie) => (

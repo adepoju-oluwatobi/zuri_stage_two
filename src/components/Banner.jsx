@@ -77,7 +77,7 @@ const Banner = () => {
     <div>
       {movie && (
         <div
-          className="bg-cover bg-no-repeat bg-center h-[80vh] md:h-[90vh] relative"
+          className="bg-cover bg-no-repeat bg-center h-[] md:h-[75vh] relative"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
           }}
@@ -89,12 +89,12 @@ const Banner = () => {
             <Header />
             <div className="mt-[15%] md:mt-[10%]">
               <Link to={`/movies/${movie.id}`}>
-                <div className="text-lg w-[20ch] md:text-4xl md:w-[20ch] mt-[10%] md:mt-[10%] font-semibold text-white">
+                <div className="text-lg w-[20ch] md:text-4xl md:w-[15ch] min-h-fit mt-[10%] md:mt-[-3%] font-semibold text-white hover:text-slate-400 transition-all duration-300">
                   {movie.title}
                 </div>
               </Link>
             </div>
-            <div className="flex gap-5 mt-2 text-white text-xs">
+            <div className="flex gap-5 my-4 text-white text-xs">
               <div className="flex gap-1 items-center">
                 <img src={Tmdb} alt="" />
                 <p>
@@ -110,7 +110,7 @@ const Banner = () => {
               {truncateText(movie.overview, 150)}{" "}
             </p>
             <Link to={`/movies/${movie.id}`}>
-              <button className="p-2 text-sm text-white font-bold mt-4 bg-[#BE123C] rounded-lg flex gap-2 items-center">
+              <button className="p-2 text-sm text-white font-bold mt-4 bg-[#BE123C] hover:bg-[#830524] transition-all duration-300 rounded-lg flex gap-2 items-center">
                 <img className="w-5 fill-white" src={PlayIcon} alt="" />
                 WATCH TRAILER
               </button>

@@ -184,29 +184,29 @@ const MovieDetails = () => {
             </div>
           </Link>
 
-          <div className="flex flex-col text-center justify-center gap-2 w-[100%]">
-            <div>
+          <div className="flex flex-col text-center justify-center gap-4 w-[100%] mt-8">
+            <div className="flex flex-col gap-4 justify-center">
               <Link to="/">
-                <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+                <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer pl-8">
                   <img className="w-5" src={Home} alt="" />
                   <p className="text-center">Home</p>
                 </div>
               </Link>
-              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer pl-8">
                 <img className="w-5" src={Mov} alt="" />
                 <p>Movies</p>
               </div>
-              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer pl-8">
                 <img className="w-5" src={Tv} alt="" />
                 <p>Tv Series</p>
               </div>
-              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer">
+              <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] cursor-pointer pl-8">
                 <img className="w-5" src={Upcoming} alt="" />
                 <p>Upcoming</p>
               </div>
             </div>
 
-            <div className="w-[120px] m-auto border-[0.3px] rounded-xl px-2 py-4 border-[#BE123C] bg-[#BE123C1A]">
+            <div className="w-[120px] m-auto border-[0.3px] rounded-xl px-2 py-4 border-[#BE123C] bg-[#BE123C1A] my-4">
               <p className="text-xs opacity-70">
                 Play movie quizzes and earn free tickets
               </p>
@@ -218,8 +218,8 @@ const MovieDetails = () => {
               </button>
             </div>
 
-            <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%]">
-              <img className="w-5" src={Logout} alt="" />
+            <div className="flex gap-2 items-center p-3 hover:bg-[#BE123C1A] hover:border-r-2 border-r-[#BE123C] hover:text-[#BE123C] hover:font-bold w-[100%] pl-8">
+              <img className="w-8" src={Logout} alt="" />
               <p>Log out</p>
             </div>
           </div>
@@ -278,12 +278,11 @@ const MovieDetails = () => {
                     {movieDetails.genres.map((genre) => genre.name).join(" ")}
                   </h6>
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <img className="w-5" src={Star} alt="" />
                   {movieRating !== null ? (
-                    <p className="text-xs">
-                      <span className="opacity-50">{movieRating}</span> |{" "}
-                      <span className="font-bold">350</span>
+                    <p className="text-xs md:text-sm">
+                      <span className="opacity-50">{movieRating}%</span>
                     </p>
                   ) : (
                     <p className="text-xs">Rating not available</p>
@@ -295,12 +294,13 @@ const MovieDetails = () => {
                 <div className="flex flex-col md:flex-row gap-2 w-[100%]">
                   <div className="w-[100%] md:w-[75%]">
                     <h6
-                      className="text-sm mt-[-10px]"
+                      className="text-sm md:text-base mt-[-10px]"
                       data-testid="movie-overview"
                     >
                       {movieDetails.overview}
                     </h6>
-                    <p className="mt-2">
+                   <div className="flex flex-col gap-4">
+                   <p className="mt-2">
                       Director:{" "}
                       <span className="text-[#BE123C]">
                         {directors.length > 1 ? "s" : ""} {directors.join(", ")}
@@ -316,6 +316,7 @@ const MovieDetails = () => {
                       Stars:{" "}
                       <span className="text-[#BE123C]">{stars.join(", ")}</span>
                     </p>
+                   </div>
 
                     <div className="flex flex-col md:flex-row gap-2 md:gap-0 items-center border-b pb-2 mt-2">
                       <p className="mr-2 bg-[#BE123C] rounded text-white py-1 px-4">
@@ -357,13 +358,13 @@ const MovieDetails = () => {
 
                     <div>
                       <div className="mt-2 rounded w-fit">
-                        <div className="flex gap-1">
+                        <div className="flex gap-3">
                           {topRatedMoviePosters.map((posterPath, index) => (
                             <img
                               key={index}
                               src={`https://image.tmdb.org/t/p/original/${posterPath}`}
                               alt={`Best Movie ${index + 1}`}
-                              className={`w-[80px] h-full${index > 0 ? 2 : 0}`}
+                              className={`w-[100px] h-full${index > 0 ? 2 : 0}`}
                             />
                           ))}
                         </div>
