@@ -19,7 +19,7 @@ function Header() {
           <Link to="/">
             <div className="one cursor-pointer">
               <img src={Logo} alt="logo" />
-              <p>MovieBox</p>
+              <p>JUST THRILLER</p>
             </div>
           </Link>
           <div className="three cursor-pointer">
@@ -43,7 +43,7 @@ function Header() {
       <div className="header hidden md:flex">
         <div className="one">
           <img src={Logo} alt="logo" />
-          <p>MovieBox</p>
+          <p>JUST THRILLER</p>
         </div>
         <div className="two">
           <SearchBar />

@@ -180,7 +180,7 @@ const MovieDetails = () => {
           <Link to="/">
             <div className="flex items-center gap-2 p-10 text-center justify-center cursor-pointer">
               <img className="w-8" src={Logo} alt="" />
-              <p>MovieBox</p>
+              <p className="text-xs">JUST THRILLER</p>
             </div>
           </Link>
 

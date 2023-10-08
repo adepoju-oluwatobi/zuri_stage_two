@@ -26,7 +26,7 @@ function Footer() {
         </div>
         <div>
             <p className='opacity-50 text-sm md:text-base mt-2'>
-            © 2021 MovieBox by Adriana Eka Prayudha  
+            © 2023 Just-Thriller by <a target='_blank' href="https://my-portfolio-one-ochre-19.vercel.app/">Adepoju Oluwatobi</a>  
             </p>
         </div>
     </div>
